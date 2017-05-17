@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiteDB, Version=3.1.0.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LiteDB.3.1.0\lib\net35\LiteDB.dll</HintPath>
+    </Reference>
     <Reference Include="Memento, Version=1.2.0.0, Culture=neutral, PublicKeyToken=bca5f6a4d14d06d8, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MementoFX.1.2.0\lib\net451\Memento.dll</HintPath>
     </Reference>
