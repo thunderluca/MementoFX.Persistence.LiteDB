@@ -28,6 +28,7 @@ namespace Memento.Persistence.LiteDB
                 throw new ArgumentNullException(nameof(liteDatabase));
 
             LiteDatabase = liteDatabase;
+            BsonMapper.Global.IncludeNonPublic = true;
         }
 
         public override IEnumerable<T> Find<T>(Func<T, bool> filter)
@@ -118,10 +119,7 @@ namespace Memento.Persistence.LiteDB
 
             var collection = LiteDatabase.GetCollection(collectionName);
 
-            var mapper = BsonMapper.Global;
-            mapper.SetAutoId(@event, LiteDatabase.Engine, collectionName);
-
-            var bsonDocument = mapper.ToDocument(@event);
+            var bsonDocument = BsonMapper.Global.ToDocument(@event);
 
             collection.Insert(bsonDocument);
         }

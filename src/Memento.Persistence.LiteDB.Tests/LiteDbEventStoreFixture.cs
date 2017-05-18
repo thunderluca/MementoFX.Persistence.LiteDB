@@ -64,7 +64,7 @@ namespace Memento.Persistence.LiteDB.Tests
             Assert.AreEqual(events.Count(), 1);
             Assert.AreEqual(events.First().AggregateId, @event.AggregateId);
             Assert.AreEqual(events.First().Title, @event.Title);
-            Assert.AreEqual(events.First().DataDiProva.ToString("yyyy-MM-dd HH:mm:ss"), @event.DataDiProva.ToString("yyyy-MM-dd HH:mm:ss"));
+            Assert.AreEqual(events.First().DataDiProva.ToString("u"), @event.DataDiProva.ToString("u"));
             Assert.AreEqual(events.First().Number, @event.Number);
         }
     }

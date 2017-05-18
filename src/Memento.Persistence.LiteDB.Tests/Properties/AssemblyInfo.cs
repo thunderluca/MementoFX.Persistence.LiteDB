@@ -2,11 +2,11 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("MementoFX.Persistence.LiteDB.Tests")]
+[assembly: AssemblyTitle("Memento.Persistence.LiteDB.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MementoFX.Persistence.LiteDB.Tests")]
+[assembly: AssemblyProduct("Memento.Persistence.LiteDB.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
