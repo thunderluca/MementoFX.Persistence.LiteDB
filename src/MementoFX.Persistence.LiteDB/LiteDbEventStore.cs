@@ -64,15 +64,19 @@ namespace Memento.Persistence.LiteDB
                     resultFilter = Query.Or(resultFilter, filters[i]);
                 }
 
-                resultFilter = Query.And(resultFilter, Query.LTE("TimeStamp", new BsonValue(pointInTime)));
+                resultFilter = Query.And(resultFilter, Query.LTE(nameof(DomainEvent.TimeStamp), new BsonValue(pointInTime)));
 
                 if (!timelineId.HasValue)
                 {
-                    resultFilter = Query.And(resultFilter, Query.EQ("TimelineId", BsonValue.Null));
+                    resultFilter = Query.And(resultFilter, Query.EQ(nameof(DomainEvent.TimelineId), BsonValue.Null));
                 }
                 else
                 {
-                    resultFilter = Query.And(resultFilter, Query.Or(Query.EQ("TimelineId", BsonValue.Null), Query.EQ("TimelineId", new BsonValue(timelineId.Value))));
+                    resultFilter = Query.And(
+                        resultFilter, 
+                        Query.Or(
+                            Query.EQ(nameof(DomainEvent.TimelineId), BsonValue.Null), 
+                            Query.EQ(nameof(DomainEvent.TimelineId), new BsonValue(timelineId.Value))));
                 }
 
                 var collection = LiteDatabase.GetCollection<BsonDocument>(collectionName).Find(resultFilter);
