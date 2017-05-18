@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace Memento.Persistence.LiteDB
 {
@@ -31,8 +32,26 @@ namespace Memento.Persistence.LiteDB
 
         public override IEnumerable<T> Find<T>(Func<T, bool> filter)
         {
+            throw new NotImplementedException();
+            //if (filter == null)
+            //    throw new ArgumentNullException(nameof(filter));
+
+            //var collectionName = typeof(T).Name;
+
+            //var events = LiteDatabase.GetCollection<T>(collectionName).Find(d => filter(d));
+
+            //return events;
+        }
+
+
+        public IEnumerable<T> Find<T>(Expression<Func<T, bool>> exp)
+        {
+            if (exp == null)
+                throw new ArgumentNullException(nameof(exp));
+
             var collectionName = typeof(T).Name;
-            var events = LiteDatabase.GetCollection<T>(collectionName).Find(doc => filter(doc));
+
+            var events = LiteDatabase.GetCollection<T>(collectionName).Find(exp);
 
             return events;
         }
@@ -79,7 +98,7 @@ namespace Memento.Persistence.LiteDB
                             Query.EQ(nameof(DomainEvent.TimelineId), new BsonValue(timelineId.Value))));
                 }
 
-                var collection = LiteDatabase.GetCollection<BsonDocument>(collectionName).Find(resultFilter);
+                var collection = LiteDatabase.GetCollection(collectionName).Find(resultFilter);
                 foreach (var document in collection)
                 {
                     var evt = BsonMapper.Global.ToObject(eventType, document);
@@ -92,11 +111,17 @@ namespace Memento.Persistence.LiteDB
 
         protected override void _Save(DomainEvent @event)
         {
+            if (@event == null)
+                throw new ArgumentNullException(nameof(@event));
+
             var collectionName = @event.GetType().Name;
 
             var collection = LiteDatabase.GetCollection(collectionName);
 
-            var bsonDocument = BsonMapper.Global.ToDocument(@event);
+            var mapper = BsonMapper.Global;
+            mapper.SetAutoId(@event, LiteDatabase.Engine, collectionName);
+
+            var bsonDocument = mapper.ToDocument(@event);
 
             collection.Insert(bsonDocument);
         }

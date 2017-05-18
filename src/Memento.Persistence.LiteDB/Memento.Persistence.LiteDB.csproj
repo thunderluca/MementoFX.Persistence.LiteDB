@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Memento.Persistence.LiteDB</RootNamespace>
-    <AssemblyName>MementoFX.Persistence.LiteDB</AssemblyName>
+    <AssemblyName>Memento.Persistence.LiteDB</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
