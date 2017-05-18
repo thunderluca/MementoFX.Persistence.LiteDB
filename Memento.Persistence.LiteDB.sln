@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memento.Persistence.LiteDB", "src\Memento.Persistence.LiteDB\Memento.Persistence.LiteDB.csproj", "{0B596210-4967-4517-9046-E2A8D457C443}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memento.Persistence.LiteDB.Tests", "src\Memento.Persistence.LiteDB.Tests\Memento.Persistence.LiteDB.Tests.csproj", "{3CF4E00D-B276-47E9-9DD4-80C8DB471FE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memento.Persistence.LiteDB", "src\Memento.Persistence.LiteDB\Memento.Persistence.LiteDB.csproj", "{5EDE4C20-D0DE-41EC-89AD-0DEF2839FA03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0B596210-4967-4517-9046-E2A8D457C443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B596210-4967-4517-9046-E2A8D457C443}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B596210-4967-4517-9046-E2A8D457C443}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B596210-4967-4517-9046-E2A8D457C443}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3CF4E00D-B276-47E9-9DD4-80C8DB471FE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3CF4E00D-B276-47E9-9DD4-80C8DB471FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CF4E00D-B276-47E9-9DD4-80C8DB471FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CF4E00D-B276-47E9-9DD4-80C8DB471FE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EDE4C20-D0DE-41EC-89AD-0DEF2839FA03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EDE4C20-D0DE-41EC-89AD-0DEF2839FA03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EDE4C20-D0DE-41EC-89AD-0DEF2839FA03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EDE4C20-D0DE-41EC-89AD-0DEF2839FA03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

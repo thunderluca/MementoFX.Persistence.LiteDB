@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0B596210-4967-4517-9046-E2A8D457C443}</ProjectGuid>
+    <ProjectGuid>{5EDE4C20-D0DE-41EC-89AD-0DEF2839FA03}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Memento.Persistence.LiteDB</RootNamespace>

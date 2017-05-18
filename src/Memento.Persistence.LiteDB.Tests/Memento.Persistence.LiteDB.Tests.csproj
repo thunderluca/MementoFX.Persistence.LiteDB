@@ -66,15 +66,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Memento.Persistence.LiteDB\Memento.Persistence.LiteDB.csproj">
-      <Project>{0b596210-4967-4517-9046-e2a8d457c443}</Project>
+      <Project>{5ede4c20-d0de-41ec-89ad-0def2839fa03}</Project>
       <Name>Memento.Persistence.LiteDB</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
