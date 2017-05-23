@@ -16,7 +16,7 @@ namespace Memento.Persistence.LiteDB.Tests.Events
             this.Number = number;
         }
 
-        public PlainEvent() { }
+        //public PlainEvent() { }
 
         public Guid AggregateId { get; set; }
 

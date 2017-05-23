@@ -14,7 +14,7 @@ namespace Memento.Persistence.LiteDB.Tests.Events
             this.Components = components;
         }
 
-        public ComplexEvent() { }
+        //public ComplexEvent() { }
 
         public Guid SecondId { get; set; }
 
@@ -22,7 +22,7 @@ namespace Memento.Persistence.LiteDB.Tests.Events
 
         public class Component
         {
-            public Component() { }
+            //public Component() { }
 
             public Component(string title, int number)
             {

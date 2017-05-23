@@ -40,13 +40,13 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Castle.Core.4.0.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="LiteDB, Version=3.1.0.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LiteDB.3.1.0\lib\net35\LiteDB.dll</HintPath>
-    </Reference>
     <Reference Include="Memento, Version=1.2.0.0, Culture=neutral, PublicKeyToken=bca5f6a4d14d06d8, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MementoFX.1.2.0\lib\net451\Memento.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MongoDB.Bson, Version=2.4.3.23, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MongoDB.Bson.2.4.3\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=4.7.10.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Moq.4.7.10\lib\net45\Moq.dll</HintPath>
     </Reference>
@@ -72,6 +72,10 @@
     <ProjectReference Include="..\Memento.Persistence.LiteDB\Memento.Persistence.LiteDB.csproj">
       <Project>{5ede4c20-d0de-41ec-89ad-0def2839fa03}</Project>
       <Name>Memento.Persistence.LiteDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Source\Repos\LiteDB\LiteDB\LiteDB.csproj">
+      <Project>{e808051a-83b7-4fa9-b004-d064ea162b60}</Project>
+      <Name>LiteDB</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

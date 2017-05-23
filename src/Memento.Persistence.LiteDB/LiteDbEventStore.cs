@@ -6,6 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using MongoDB.Bson;
+using BsonDocument = LiteDB.BsonDocument;
+using BsonValue = LiteDB.BsonValue;
+using BsonSerializer = MongoDB.Bson.Serialization.BsonSerializer;
+using MongoDB.Bson.Serialization;
+using System.Reflection;
 
 namespace Memento.Persistence.LiteDB
 {
@@ -18,7 +24,7 @@ namespace Memento.Persistence.LiteDB
             if (LiteDatabase == null)
             {
                 var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["EventStore"].ConnectionString;
-                LiteDatabase = new LiteDatabase(connectionString);
+                LiteDatabase = new LiteDatabase(connectionString, new BsonMapper());
             }
         }
 
@@ -39,13 +45,14 @@ namespace Memento.Persistence.LiteDB
 
             //var collectionName = typeof(T).Name;
 
-            //var events = LiteDatabase.GetCollection<T>(collectionName).Find(d => filter(d));
+
+            ////LITEDB DOESN'T ACCEPT DELEGATES, BUT EXPRESSIONS
+            //var events = LiteDatabase.GetCollection<T>(collectionName).Find(filter);
 
             //return events;
         }
 
-
-        public IEnumerable<T> Find<T>(Expression<Func<T, bool>> exp)
+        public IEnumerable<T> Find<T>(Expression<Func<T, bool>> exp) where T : DomainEvent
         {
             if (exp == null)
                 throw new ArgumentNullException(nameof(exp));
@@ -102,7 +109,7 @@ namespace Memento.Persistence.LiteDB
                 var collection = LiteDatabase.GetCollection(collectionName).Find(resultFilter);
                 foreach (var document in collection)
                 {
-                    var evt = BsonMapper.Global.ToObject(eventType, document);
+                    var evt = LiteDatabase.Mapper.ToObject(eventType, document);
                     events.Add((DomainEvent)evt);
                 }
             }
@@ -115,13 +122,17 @@ namespace Memento.Persistence.LiteDB
             if (@event == null)
                 throw new ArgumentNullException(nameof(@event));
 
-            var collectionName = @event.GetType().Name;
+            var eventType = @event.GetType();
 
-            var collection = LiteDatabase.GetCollection(collectionName);
+            var getCollectionMethod = typeof(LiteDatabase).GetMethods().First(m => m.Name == nameof(LiteDatabase.GetCollection));
+            var getCollectionGeneric = getCollectionMethod.MakeGenericMethod(eventType);
 
-            var bsonDocument = BsonMapper.Global.ToDocument(@event);
+            var collection = getCollectionGeneric.Invoke(LiteDatabase, new object[] { eventType.Name });
 
-            collection.Insert(bsonDocument);
+            var collectionType = collection.GetType();
+            var method = collectionType.GetMethods().First(m => m.Name == nameof(LiteCollection<object>.Insert));
+
+            method.Invoke(collection, new object[] { @event });
         }
     }
 }

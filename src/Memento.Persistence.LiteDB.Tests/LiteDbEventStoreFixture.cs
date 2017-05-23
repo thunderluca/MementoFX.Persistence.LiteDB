@@ -16,13 +16,13 @@ namespace Memento.Persistence.LiteDB.Tests
     {
         LiteDbEventStore EventStore = null;
         //IEventStore EventStore = null;
-        string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "local.db");
+        string path = Path.Combine(Path.GetTempPath(), "lite.db");
 
         [SetUp]
         public void SetUp()
         {
             var bus = new Mock<IEventDispatcher>().Object;
-            var liteDatabase = new LiteDatabase(path);
+            var liteDatabase = new LiteDatabase(path, new BsonMapper());
 
             EventStore = new LiteDbEventStore(liteDatabase, bus);
         }
