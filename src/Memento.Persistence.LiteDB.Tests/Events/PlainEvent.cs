@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Memento.Persistence.LiteDB.Tests.Events
+namespace Memento.Persistence.LiteDb.Tests.Events
 {
     public class PlainEvent : DomainEvent
     {
@@ -15,9 +11,7 @@ namespace Memento.Persistence.LiteDB.Tests.Events
             this.DataDiProva = dataDiProva;
             this.Number = number;
         }
-
-        //public PlainEvent() { }
-
+        
         public Guid AggregateId { get; set; }
 
         public string Title { get; set; }

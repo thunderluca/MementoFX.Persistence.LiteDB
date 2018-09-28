@@ -1,28 +1,27 @@
-﻿using System;
-using NUnit.Framework;
-using Moq;
+﻿using LiteDB;
 using Memento.Messaging;
-using LiteDB;
+using Memento.Persistence.LiteDb.Tests.Events;
+using Moq;
+using NUnit.Framework;
 using SharpTestsEx;
-using System.IO;
-using Memento.Persistence.LiteDB.Tests.Events;
-using System.Linq;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
-namespace Memento.Persistence.LiteDB.Tests
+namespace Memento.Persistence.LiteDb.Tests
 {
     [TestFixture]
     public class LiteDbEventStoreFixture
     {
-        LiteDbEventStore EventStore = null;
-        //IEventStore EventStore = null;
-        string path = Path.Combine(Path.GetTempPath(), "lite.db");
+        IEventStore EventStore = null;
+        readonly string path = Path.Combine(Path.GetTempPath(), "lite.db");
 
         [SetUp]
         public void SetUp()
         {
             var bus = new Mock<IEventDispatcher>().Object;
-            var liteDatabase = new LiteDatabase(path, new BsonMapper());
+            var liteDatabase = new LiteDatabase(path);
 
             EventStore = new LiteDbEventStore(liteDatabase, bus);
         }

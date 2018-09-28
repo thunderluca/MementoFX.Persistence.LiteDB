@@ -3,17 +3,9 @@ using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Linq.Expressions;
-using MongoDB.Bson;
-using BsonDocument = LiteDB.BsonDocument;
-using BsonValue = LiteDB.BsonValue;
-using BsonSerializer = MongoDB.Bson.Serialization.BsonSerializer;
-using MongoDB.Bson.Serialization;
-using System.Reflection;
 
-namespace Memento.Persistence.LiteDB
+namespace Memento.Persistence.LiteDb
 {
     public class LiteDbEventStore : EventStore
     {
@@ -30,32 +22,26 @@ namespace Memento.Persistence.LiteDB
 
         public LiteDbEventStore(LiteDatabase liteDatabase, IEventDispatcher eventDispatcher) : base(eventDispatcher)
         {
-            if (liteDatabase == null)
-                throw new ArgumentNullException(nameof(liteDatabase));
-
-            LiteDatabase = liteDatabase;
+            LiteDatabase = liteDatabase ?? throw new ArgumentNullException(nameof(liteDatabase));
             BsonMapper.Global.IncludeNonPublic = true;
         }
 
         public override IEnumerable<T> Find<T>(Func<T, bool> filter)
         {
-            throw new NotImplementedException();
-            //if (filter == null)
-            //    throw new ArgumentNullException(nameof(filter));
-
-            //var collectionName = typeof(T).Name;
-
-
-            ////LITEDB DOESN'T ACCEPT DELEGATES, BUT EXPRESSIONS
-            //var events = LiteDatabase.GetCollection<T>(collectionName).Find(filter);
-
-            //return events;
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter));
+            }
+            
+            return LiteDatabase.GetCollection<T>(typeof(T).Name).Find(query);
         }
 
         public IEnumerable<T> Find<T>(Expression<Func<T, bool>> exp) where T : DomainEvent
         {
             if (exp == null)
+            {
                 throw new ArgumentNullException(nameof(exp));
+            }
 
             var collectionName = typeof(T).Name;
 
@@ -68,8 +54,7 @@ namespace Memento.Persistence.LiteDB
         {
             var events = new List<DomainEvent>();
 
-            var descriptorsGrouped = eventDescriptors
-                .GroupBy(k => k.EventType);
+            var descriptorsGrouped = eventDescriptors.GroupBy(k => k.EventType);
 
             foreach (var descriptorsGroup in descriptorsGrouped)
             {
