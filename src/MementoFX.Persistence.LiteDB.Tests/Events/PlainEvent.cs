@@ -1,9 +1,11 @@
 ﻿using System;
 
-namespace Memento.Persistence.LiteDb.Tests.Events
+namespace MementoFX.Persistence.LiteDb.Tests.Events
 {
     public class PlainEvent : DomainEvent
     {
+        public PlainEvent() { }
+
         public PlainEvent(Guid aggregateId, string title, DateTime dataDiProva, double number)
         {
             this.AggregateId = aggregateId;
@@ -16,6 +18,7 @@ namespace Memento.Persistence.LiteDb.Tests.Events
 
         public string Title { get; set; }
 
+        [Domain.Timestamp]
         public DateTime DataDiProva { get; set; }
 
         public double Number { get; set; }

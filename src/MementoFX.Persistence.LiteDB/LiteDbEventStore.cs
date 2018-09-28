@@ -1,21 +1,20 @@
-﻿using Memento.Messaging;
+﻿using MementoFX.Messaging;
 using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Memento.Persistence.LiteDb
+namespace MementoFX.Persistence.LiteDb
 {
     public class LiteDbEventStore : EventStore
     {
         public static LiteDatabase LiteDatabase { get; private set; }
 
-        public LiteDbEventStore(IEventDispatcher eventDispatcher) : base(eventDispatcher)
+        public LiteDbEventStore(string connectionString, IEventDispatcher eventDispatcher) : base(eventDispatcher)
         {
             if (LiteDatabase == null)
             {
-                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["EventStore"].ConnectionString;
                 LiteDatabase = new LiteDatabase(connectionString, new BsonMapper());
             }
         }
@@ -26,28 +25,14 @@ namespace Memento.Persistence.LiteDb
             BsonMapper.Global.IncludeNonPublic = true;
         }
 
-        public override IEnumerable<T> Find<T>(Func<T, bool> filter)
+        public override IEnumerable<T> Find<T>(Expression<Func<T, bool>> filter)
         {
             if (filter == null)
             {
                 throw new ArgumentNullException(nameof(filter));
             }
             
-            return LiteDatabase.GetCollection<T>(typeof(T).Name).Find(query);
-        }
-
-        public IEnumerable<T> Find<T>(Expression<Func<T, bool>> exp) where T : DomainEvent
-        {
-            if (exp == null)
-            {
-                throw new ArgumentNullException(nameof(exp));
-            }
-
-            var collectionName = typeof(T).Name;
-
-            var events = LiteDatabase.GetCollection<T>(collectionName).Find(exp);
-
-            return events;
+            return LiteDatabase.GetCollection<T>(typeof(T).Name).Find(filter);
         }
 
         public override IEnumerable<DomainEvent> RetrieveEvents(Guid aggregateId, DateTime pointInTime, IEnumerable<EventMapping> eventDescriptors, Guid? timelineId)

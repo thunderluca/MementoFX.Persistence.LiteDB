@@ -1,35 +1,41 @@
 ﻿using LiteDB;
-using Memento.Messaging;
-using Memento.Persistence.LiteDb.Tests.Events;
+using MementoFX.Messaging;
+using MementoFX.Persistence.LiteDb.Tests.Events;
 using Moq;
-using NUnit.Framework;
 using SharpTestsEx;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Xunit;
 
-namespace Memento.Persistence.LiteDb.Tests
+namespace MementoFX.Persistence.LiteDb.Tests
 {
-    [TestFixture]
     public class LiteDbEventStoreFixture
     {
         IEventStore EventStore = null;
         readonly string path = Path.Combine(Path.GetTempPath(), "lite.db");
-
-        [SetUp]
-        public void SetUp()
+        
+        public LiteDbEventStoreFixture()
         {
             var bus = new Mock<IEventDispatcher>().Object;
             var liteDatabase = new LiteDatabase(path);
+            var collectionNames = liteDatabase.GetCollectionNames().ToArray();
+            if (collectionNames.Length > 0)
+            {
+                foreach (var collectionName in collectionNames)
+                {
+                    liteDatabase.DropCollection(collectionName);
+                }
+            }
 
             EventStore = new LiteDbEventStore(liteDatabase, bus);
         }
 
-        [Test]
+        [Fact]
         public void LiteDbEventStore_Throws_When_EventDispatcher_Is_Null()
         {
-            Executing.This(() => new LiteDbEventStore(null))
+            Executing.This(() => new LiteDbEventStore(path, null))
                 .Should()
                 .Throw<ArgumentNullException>()
                 .And
@@ -40,7 +46,7 @@ namespace Memento.Persistence.LiteDb.Tests
                 .EqualTo("eventDispatcher");
         }
 
-        [Test]
+        [Fact]
         public void Save_Throws_When_Event_Is_Null()
         {
             Executing.This(() => EventStore.Save(null))
@@ -54,21 +60,21 @@ namespace Memento.Persistence.LiteDb.Tests
                 .EqualTo("event");
         }
 
-        [Test]
+        [Fact]
         public void Save_Should_Allow_Retrieval()
         {
             var @event = new PlainEvent(Guid.NewGuid(), "Hello Memento", DateTime.Now, double.MaxValue);
             EventStore.Save(@event);
 
             var events = EventStore.Find<PlainEvent>(pe => pe.AggregateId == @event.AggregateId);
-            Assert.AreEqual(events.Count(), 1);
-            Assert.AreEqual(events.First().AggregateId, @event.AggregateId);
-            Assert.AreEqual(events.First().Title, @event.Title);
-            Assert.AreEqual(events.First().DataDiProva.ToString("u"), @event.DataDiProva.ToString("u"));
-            Assert.AreEqual(events.First().Number, @event.Number);
+            Assert.Single(events);
+            Assert.Equal(events.First().AggregateId, @event.AggregateId);
+            Assert.Equal(events.First().Title, @event.Title);
+            Assert.Equal(events.First().DataDiProva.ToString("u"), @event.DataDiProva.ToString("u"));
+            Assert.Equal(events.First().Number, @event.Number);
         }
 
-        [Test]
+        [Fact]
         public void Event_Retrieval_Shoul_Work_Properly()
         {
             var aggregateId = Guid.NewGuid();
@@ -89,8 +95,8 @@ namespace Memento.Persistence.LiteDb.Tests
             };
 
             var events = EventStore.RetrieveEvents(aggregateId, DateTime.Now, eventDescriptors, timelineId: null);
-            Assert.AreEqual(events.Count(), 1);
-            //Assert.AreEqual(events.First().GetType(), typeof(PlainEvent));
+            Assert.Single(events);
+            Assert.Equal(typeof(PlainEvent), events.First().GetType());
         }
     }
 }

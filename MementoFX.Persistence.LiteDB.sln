@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MementoFX.Persistence.LiteDB", "src\MementoFX.Persistence.LiteDB\MementoFX.Persistence.LiteDB.csproj", "{811893A0-03BA-4EF2-8032-0B33DDD791BA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MementoFX.Persistence.LiteDB.Tests", "src\MementoFX.Persistence.LiteDB.Tests\MementoFX.Persistence.LiteDB.Tests.csproj", "{3607AE99-621B-43F0-83D1-AF9121D6A5A2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{811893A0-03BA-4EF2-8032-0B33DDD791BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{811893A0-03BA-4EF2-8032-0B33DDD791BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{811893A0-03BA-4EF2-8032-0B33DDD791BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{811893A0-03BA-4EF2-8032-0B33DDD791BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3607AE99-621B-43F0-83D1-AF9121D6A5A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3607AE99-621B-43F0-83D1-AF9121D6A5A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3607AE99-621B-43F0-83D1-AF9121D6A5A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3607AE99-621B-43F0-83D1-AF9121D6A5A2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43939249-F35C-42DE-8C0B-C36B0871883F}
+	EndGlobalSection
+EndGlobal

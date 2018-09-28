@@ -1,9 +1,11 @@
 ﻿using System;
 
-namespace Memento.Persistence.LiteDb.Tests.Events
+namespace MementoFX.Persistence.LiteDb.Tests.Events
 {
     public class ComplexEvent : DomainEvent
     {
+        public ComplexEvent() { }
+
         public ComplexEvent(Guid secondId, Component[] components)
         {
             this.SecondId = secondId;
