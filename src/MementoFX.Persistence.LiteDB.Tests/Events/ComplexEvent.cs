@@ -4,7 +4,7 @@ namespace MementoFX.Persistence.LiteDb.Tests.Events
 {
     public class ComplexEvent : DomainEvent
     {
-        public ComplexEvent() { }
+        public ComplexEvent() { } //Required
 
         public ComplexEvent(Guid secondId, Component[] components)
         {

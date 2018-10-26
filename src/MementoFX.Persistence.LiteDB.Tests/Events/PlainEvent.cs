@@ -4,7 +4,7 @@ namespace MementoFX.Persistence.LiteDb.Tests.Events
 {
     public class PlainEvent : DomainEvent
     {
-        public PlainEvent() { }
+        public PlainEvent() { } //Required
 
         public PlainEvent(Guid aggregateId, string title, DateTime dataDiProva, double number)
         {
